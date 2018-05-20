@@ -4,6 +4,8 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
+// General Styles
+
 body {
     font-family: sans-serif;
     background: lightskyblue;
@@ -13,35 +15,33 @@ body {
     margin: 0 auto;
     max-width: 360px;
     background: white;
+    box-shadow: 0 0 8px black;
+    padding: 20px;
 }
 
-form {
-    display: inline-block;
-    margin: 15px auto;
-    text-align: center;
-}
+// ReceiptTop
 
-.submit-button {
+.receiptTop {
     text-align: center;
-}
-
-header {
-    text-align: center;
+    border-bottom: 1px dashed black;
 }
 
 h1 {
     text-transform: uppercase;
 }
 
-.bill-info {
-    position: relative;
+// receiptInputs
+.submit-button {
+    text-align: center;
 }
+
+// receiptInfo
+
 .bill-info-title {
     text-align: center;
     display: flex;
 }
 
-//
 .info-style-left,
 .info-style-right {
     border-top: 1px dashed black;
@@ -53,22 +53,39 @@ h1 {
     margin: 15px;
 }
 
-// 
-.date {
-    float: left;
-}
-.split {
+.amounts {
     float: left;
 }
 
 .numbers {
     float: right;
 }
+
 .bill-info-bottom {
     border-bottom: 1px dashed #000;
 }
+
 .bill-info-top p,
 .bill-info-middle p,
 .bill-info-bottom p {
     margin: 15px;
+}
+
+// receiptsInputs
+
+.receiptInputs {
+    text-align: center;
+    
+}
+
+// oldReceipts
+
+ul {
+    list-style: none;
+}
+
+li {
+    button {
+        float: right
+    }
 }
