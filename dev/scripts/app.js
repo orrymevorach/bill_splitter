@@ -22,6 +22,9 @@ class App extends React.Component {
   constructor() {
     super();
 
+    const today = new Date(),
+    fullDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
     this.state = {
       dollarAmount: 0,
       peopleAmount: 0,
@@ -33,13 +36,15 @@ class App extends React.Component {
       totalTipTwentyFive: 0,
       location: '',
       displayLocation: '',
+      todaysDate: fullDate,
       receipts: []
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.populate = this.populate.bind(this)
-    this.remove = this.remove.bind(this)
+    this.populate = this.populate.bind(this);
+    this.remove = this.remove.bind(this);
+    this.reset = this.reset.bind(this);
 
   }
 
@@ -70,15 +75,25 @@ class App extends React.Component {
     }) 
   }
   
+  // A function that:
+    // Calculates and displays the bill split with tip amounts of 15%, 20%, and 25%
+    // Stores the values in firebase so that the amounts can be restored when the populate() function is called
   handleSubmit(e) {
     e.preventDefault();
-    const updatedTotal = this.state.dollarAmount / this.state.peopleAmount
+    // Variable that divides the dollar amount by people amount and rounds to 2 decimal places
+    const updatedTotal = Math.round((this.state.dollarAmount / this.state.peopleAmount) * 100) / 100 
     
+    // Variables that calculate 15% tax and round to 2 decimal places
     const fifteenTax = ((this.state.dollarAmount / this.state.peopleAmount) * 0.15) + (this.state.dollarAmount / this.state.peopleAmount)
+    const fifteenTaxRounded = Math.round(fifteenTax * 100) / 100
 
+    // Variables that calculate 20% tax and round to 2 decimal places
     const twentyTax = ((this.state.dollarAmount / this.state.peopleAmount) * 0.20) + (this.state.dollarAmount / this.state.peopleAmount)
+    const twentyTaxRounded = Math.round(twentyTax * 100) / 100
 
+    // Variables that calculate 25% tax and round to 2 decimal places
     const twentyFiveTax = ((this.state.dollarAmount / this.state.peopleAmount) * 0.25) + (this.state.dollarAmount / this.state.peopleAmount)
+    const twentyFiveTaxRounded = Math.round(twentyFiveTax * 100) / 100
     
     // Creating a variable to store the data being pushed to firebase
     const storedVariable = {
@@ -86,7 +101,7 @@ class App extends React.Component {
       storedPeopleAmount: this.state.peopleAmount,
       storedTotalAmount: updatedTotal,
       storedLocation: this.state.location,
-      selected: false
+      todaysDate: this.state.todaysDate
     }
 
     // Create a reference to the firebase locaiton we would like our todos to live in
@@ -100,33 +115,59 @@ class App extends React.Component {
       displayPeople: this.state.peopleAmount,
       newTotal: updatedTotal,
       displayLocation: this.state.location,
-      totalTipFifteen: fifteenTax,
-      totalTipTwenty: twentyTax,
-      totalTipTwentyFive: twentyFiveTax
+      totalTipFifteen: fifteenTaxRounded,
+      totalTipTwenty: twentyTaxRounded,
+      totalTipTwentyFive: twentyFiveTaxRounded
     })
 
   }
 
+  // A function that will repopulate the required areas when the review button is clicked on
   populate(location, dollar, people) {
-    const updatedTotal = dollar / people;
+    
+    // Variable that divides the dollar amount by people amount and rounds to 2 decimal places
+    const updatedTotal = Math.round((dollar / people) * 100) / 100
 
+    // Variables that calculate 15% tax and round to 2 decimal places
     const fifteenTax = ((dollar / people) * 0.15) + (dollar / people)
+    const fifteenTaxRounded = Math.round(fifteenTax * 100) / 100
 
+    // Variables that calculate 15% tax and round to 2 decimal places
     const twentyTax = ((dollar / people) * 0.20) + (dollar / people)
+    const twentyTaxRounded = Math.round(twentyTax * 100) / 100
 
+    // Variables that calculate 15% tax and round to 2 decimal places
     const twentyFiveTax = ((dollar / people) * 0.25) + (dollar / people)
+    const twentyFiveTaxRounded = Math.round(twentyFiveTax * 100) / 100
 
     this.setState({
       displayDollar: dollar,
       displayPeople: people,
       newTotal: updatedTotal,
       displayLocation: location,
-      totalTipFifteen: fifteenTax,
-      totalTipTwenty: twentyTax,
-      totalTipTwentyFive: twentyFiveTax
+      totalTipFifteen: fifteenTaxRounded,
+      totalTipTwenty: twentyTaxRounded,
+      totalTipTwentyFive: twentyFiveTaxRounded
     })
   }
 
+  // A function that resets the entire form when the RESET button is clicked on
+  reset() {
+    this.setState({
+      dollarAmount: 0,
+      peopleAmount: 0,
+      displayDollar: 0,
+      displayPeople: 0,
+      newTotal: 0,
+      totalTipFifteen: 0,
+      totalTipTwenty: 0,
+      totalTipTwentyFive: 0,
+      location: '',
+      displayLocation: ''
+    })
+  }
+
+  // A function that removes each list item when the Delete button is clicked on
   remove(keyToRemove) {
     firebase.database().ref(`amountReference/${keyToRemove}`).remove();
   }
@@ -157,6 +198,8 @@ class App extends React.Component {
               tipFifteen={this.state.totalTipFifteen}
               tipTwenty={this.state.totalTipTwenty}
               tipTwentyFive={this.state.totalTipTwentyFive}
+              location={this.state.displayLocation}
+              reset={this.reset}
             />
 
             <ul>
@@ -170,6 +213,8 @@ class App extends React.Component {
                     dollarAmount={receipts.storedDollarAmount}
                     peopleAmount={receipts.storedPeopleAmount}
                     remove={this.remove}
+                    todaysDate={receipts.todaysDate}
+                    
                   />
                 )
               })}

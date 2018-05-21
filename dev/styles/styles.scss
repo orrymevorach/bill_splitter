@@ -8,7 +8,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 
 body {
     font-family: sans-serif;
-    background: lightskyblue;
+    background: darkcyan;
 }
 
 .wrapper {
@@ -17,6 +17,14 @@ body {
     background: white;
     box-shadow: 0 0 8px black;
     padding: 20px;
+}
+
+p {
+    font-size: 14px;
+}
+
+span {
+    font-style: italic;
 }
 
 // ReceiptTop
@@ -37,6 +45,15 @@ h1 {
 
 // receiptInfo
 
+.receiptInfo {
+    border-bottom: 1px dashed black;
+    border-top: 1px dashed black;
+}
+
+.location-title {
+    text-align: center;
+    text-transform: capitalize;
+}
 .bill-info-title {
     text-align: center;
     display: flex;
@@ -49,20 +66,19 @@ h1 {
     margin-top: 25px;
 }
 
-.info {
-    margin: 15px;
-}
-
 .amounts {
     float: left;
 }
 
 .numbers {
     float: right;
+    font-size: 16px;
+    font-style: bold;
 }
 
-.bill-info-bottom {
-    border-bottom: 1px dashed #000;
+.reset-button {
+    text-align: center;
+    margin: 0 auto;
 }
 
 .bill-info-top p,
@@ -75,17 +91,29 @@ h1 {
 
 .receiptInputs {
     text-align: center;
-    
+    padding: 20px 0;
 }
+
+
 
 // oldReceipts
 
 ul {
     list-style: none;
-}
-
-li {
-    button {
-        float: right
+    padding: 0;
+    margin: 0;
+    li {
+        text-transform: capitalize;
+        span{
+            font-size: 12px;
+            font-style: none;
+        }
+        button {
+            float: right;
+            padding: 0;
+            margin: 0;
+        }
     }
 }
+
+

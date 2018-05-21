@@ -5,7 +5,7 @@ const ReceiptInputs = (props) => {
         <section className="receiptInputs">
             <form action="#" onSubmit={(e) => props.handleSubmit(e)}>
                 <div className="restaurant">
-                    <label htmlFor="">Where are you?</label>
+                    <label htmlFor="">What Is The Name Of The Restaurant?</label>
                     <input
                         name="location"
                         type="text"
