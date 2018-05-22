@@ -3,7 +3,9 @@ import React from 'react';
 const ReceiptInputs = (props) => {
     return (
         <section className="receiptInputs">
+            {/* Form containing inputs and submit button */}
             <form action="#" onSubmit={(e) => props.handleSubmit(e)}>
+                {/* Restaurant Input */}
                 <div className="restaurant">
                     <label htmlFor="">What Is The Name Of The Restaurant?</label>
                     <input
@@ -14,7 +16,8 @@ const ReceiptInputs = (props) => {
                         placeholder="example: McDonalds"
                     />
                 </div>
-            
+                
+                {/* Bill Total Input */}
                 <div className="totalAmount">
                     <label htmlFor="">What Is The Total Of Your Bill?</label>
                     <input
@@ -26,6 +29,7 @@ const ReceiptInputs = (props) => {
                     />
                 </div>
 
+                {/* People Total Input */}
                 <div className="totalPeople">
                     <label htmlFor="">How Many People Are Splitting The Bill?</label>
                     <input
@@ -37,11 +41,13 @@ const ReceiptInputs = (props) => {
                     />
                 </div>
 
+                {/* Submit Button */}
                 <div className="submit-button">
                     <input type="submit" value="Calculate!" />
                 </div>
             </form>
             
+            {/* Reset Button */}
             <button className="reset-button" onClick={props.reset}>{props.stringReset}</button>
             
         </section>

@@ -4,7 +4,7 @@ const OldReceipts = (props) => {
     return (
         <section className="oldReceipts">
             
-            
+            {/* List Items that will hold each old bill */}
             <li className="clearfix"> 
                 <span className="restaurant-name">{props.storedLocation}</span> 
                 <span className="date"> ({props.todaysDate})</span>

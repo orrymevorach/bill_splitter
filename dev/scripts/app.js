@@ -22,6 +22,7 @@ class App extends React.Component {
   constructor() {
     super();
 
+    // A variable that gets the date
     const today = new Date(),
     fullDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
@@ -63,8 +64,8 @@ class App extends React.Component {
     dbRef.on('value', (snapshot) => {
       const data = snapshot.val();
       
+      // Creating a duplicate Array that will get pushed to receipts array
       const receiptsArray = [];
-      
       
       for (let item in data) {
         data[item].key = item;
@@ -217,8 +218,11 @@ class App extends React.Component {
     return (
       <div>
         <div className="wrapper">
+            
+            {/* Header of Bill */}
             <ReceiptTop />
               
+            {/* Section containing Inputs */}
             <ReceiptInputs 
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
@@ -228,6 +232,7 @@ class App extends React.Component {
               reset={this.reset}
             />
 
+            {/* Section Displaying Calculated Information */}
             <ReceiptInfo 
               receipts={this.state.receipts}
               dollar={this.state.displayDollar}
@@ -248,6 +253,7 @@ class App extends React.Component {
               stringPeople={this.state.stringPeople}
         />
 
+            {/* Section showing all old receipts */}
             <ul>
               {this.state.receipts.map((receipts) => {
                 return (
@@ -303,17 +309,10 @@ class App extends React.Component {
               <div className="triangle triangle34"></div>
               <div className="triangle triangle35"></div>
               <div className="triangle triangle36"></div>
-              
+          </div> {/* Closing Triangle-Bottom Section */}  
 
-
-
-        </div>  
         </div> {/* Closing Wrapper */}
         
-
-
-        
-
       </div>
     )
   }
