@@ -28,15 +28,26 @@ class App extends React.Component {
     this.state = {
       dollarAmount: 0,
       peopleAmount: 0,
-      displayDollar: 0,
-      displayPeople: 0,
-      newTotal: 0,
-      totalTipFifteen: 0,
-      totalTipTwenty: 0,
-      totalTipTwentyFive: 0,
+      displayDollar: '',
+      displayPeople: '',
+      newTotal: '',
+      totalTipFifteen: '',
+      totalTipTwenty: '',
+      totalTipTwentyFive: '',
       location: '',
       displayLocation: '',
       todaysDate: fullDate,
+      stringTotal: '',
+      stringSplitBy: '',
+      stringTotalPerPerson: '',
+      stringNoTip: '',
+      stringTipFifteen: '',
+      stringTipTwenty: '',
+      stringTipTwentyFive: '',
+      stringReset: '',
+      dollarSign: '',
+      stringPeople: '',
+      notes: 'yes yes yes',
       receipts: []
     };
 
@@ -45,7 +56,6 @@ class App extends React.Component {
     this.populate = this.populate.bind(this);
     this.remove = this.remove.bind(this);
     this.reset = this.reset.bind(this);
-
   }
 
   componentDidMount() {
@@ -78,7 +88,7 @@ class App extends React.Component {
   // A function that:
     // Calculates and displays the bill split with tip amounts of 15%, 20%, and 25%
     // Stores the values in firebase so that the amounts can be restored when the populate() function is called
-  handleSubmit(e) {
+  handleSubmit(e, storedNotes) {
     e.preventDefault();
     // Variable that divides the dollar amount by people amount and rounds to 2 decimal places
     const updatedTotal = Math.round((this.state.dollarAmount / this.state.peopleAmount) * 100) / 100 
@@ -94,7 +104,7 @@ class App extends React.Component {
     // Variables that calculate 25% tax and round to 2 decimal places
     const twentyFiveTax = ((this.state.dollarAmount / this.state.peopleAmount) * 0.25) + (this.state.dollarAmount / this.state.peopleAmount)
     const twentyFiveTaxRounded = Math.round(twentyFiveTax * 100) / 100
-    
+
     // Creating a variable to store the data being pushed to firebase
     const storedVariable = {
       storedDollarAmount: this.state.dollarAmount,
@@ -115,9 +125,19 @@ class App extends React.Component {
       displayPeople: this.state.peopleAmount,
       newTotal: updatedTotal,
       displayLocation: this.state.location,
-      totalTipFifteen: fifteenTaxRounded,
+      totalTipFifteen:  fifteenTaxRounded,
       totalTipTwenty: twentyTaxRounded,
-      totalTipTwentyFive: twentyFiveTaxRounded
+      totalTipTwentyFive: twentyFiveTaxRounded,
+      stringTotal: 'Your Total Is:',
+      stringSplitBy: 'Split By:',
+      stringTotalPerPerson: 'Total Per Person With:',
+      stringNoTip: 'No Tip',
+      stringTipFifteen: '15% Tip',
+      stringTipTwenty: '20% Tip',
+      stringTipTwentyFive: '25% Tip',
+      stringReset: 'RESET',
+      dollarSign: '$',
+      stringPeople: 'people'
     })
 
   }
@@ -147,7 +167,17 @@ class App extends React.Component {
       displayLocation: location,
       totalTipFifteen: fifteenTaxRounded,
       totalTipTwenty: twentyTaxRounded,
-      totalTipTwentyFive: twentyFiveTaxRounded
+      totalTipTwentyFive: twentyFiveTaxRounded,
+      stringTotal: 'Your Total Is:',
+      stringSplitBy: 'Split By:',
+      stringTotalPerPerson: 'Total Per Person With:',
+      stringNoTip: 'No Tip',
+      stringTipFifteen: '15% Tip',
+      stringTipTwenty: '20% Tip',
+      stringTipTwentyFive: '25% Tip',
+      stringReset: 'RESET',
+      dollarSign: '$',
+      stringPeople: 'people'
     })
   }
 
@@ -156,14 +186,24 @@ class App extends React.Component {
     this.setState({
       dollarAmount: 0,
       peopleAmount: 0,
-      displayDollar: 0,
-      displayPeople: 0,
-      newTotal: 0,
-      totalTipFifteen: 0,
-      totalTipTwenty: 0,
-      totalTipTwentyFive: 0,
+      displayDollar: '',
+      displayPeople: '',
+      newTotal: '',
+      totalTipFifteen: '',
+      totalTipTwenty: '',
+      totalTipTwentyFive: '',
       location: '',
-      displayLocation: ''
+      displayLocation: '',
+      stringTotal: '',
+      stringSplitBy: '',
+      stringTotalPerPerson: '',
+      stringNoTip: '',
+      stringTipFifteen: '',
+      stringTipTwenty: '',
+      stringTipTwentyFive: '',
+      stringReset: '',
+      dollarSign: '',
+      stringPeople: ''
     })
   }
 
@@ -171,23 +211,21 @@ class App extends React.Component {
   remove(keyToRemove) {
     firebase.database().ref(`amountReference/${keyToRemove}`).remove();
   }
-  
+
   render() {
       
     return (
       <div>
         <div className="wrapper">
-            <ReceiptTop
-              handleSubmit={this.handleSubmit}
-              handleChange={this.handleChange}
-              />
-
+            <ReceiptTop />
+              
             <ReceiptInputs 
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
               dollarAmount={this.state.dollarAmount}
               peopleAmount={this.state.peopleAmount}
-              location={this.location}
+              stringReset={this.state.stringReset}
+              reset={this.reset}
             />
 
             <ReceiptInfo 
@@ -199,8 +237,16 @@ class App extends React.Component {
               tipTwenty={this.state.totalTipTwenty}
               tipTwentyFive={this.state.totalTipTwentyFive}
               location={this.state.displayLocation}
-              reset={this.reset}
-            />
+              stringTotal={this.state.stringTotal}
+              stringSplitBy= {this.state.stringSplitBy}
+              stringTotalPerPerson={this.state.stringTotalPerPerson}
+              stringNoTip={this.state.stringNoTip}
+              stringTipFifteen={this.state.stringTipFifteen}
+              stringTipTwenty={this.state.stringTipTwenty}
+              stringTipTwentyFive={this.state.stringTipTwentyFive}
+              dollarSign={this.state.dollarSign}
+              stringPeople={this.state.stringPeople}
+        />
 
             <ul>
               {this.state.receipts.map((receipts) => {
@@ -214,16 +260,56 @@ class App extends React.Component {
                     peopleAmount={receipts.storedPeopleAmount}
                     remove={this.remove}
                     todaysDate={receipts.todaysDate}
-                    
                   />
                 )
               })}
             </ul>
-            
+        
+        {/* Style Triangles At Bottom Of Receipt */}
+        <div className="triangle-bottom">
+              <div className="triangle triangle1"></div>
+              <div className="triangle triangle2"></div>
+              <div className="triangle triangle3"></div>
+              <div className="triangle triangle4"></div>
+              <div className="triangle triangle5"></div>
+              <div className="triangle triangle6"></div>
+              <div className="triangle triangle7"></div>
+              <div className="triangle triangle8"></div>
+              <div className="triangle triangle9"></div>
+              <div className="triangle triangle10"></div>
+              <div className="triangle triangle11"></div>
+              <div className="triangle triangle12"></div>
+              <div className="triangle triangle13"></div>
+              <div className="triangle triangle14"></div>
+              <div className="triangle triangle15"></div>
+              <div className="triangle triangle16"></div>
+              <div className="triangle triangle17"></div>
+              <div className="triangle triangle18"></div>
+              <div className="triangle triangle19"></div>
+              <div className="triangle triangle20"></div>
+              <div className="triangle triangle21"></div>
+              <div className="triangle triangle22"></div>
+              <div className="triangle triangle23"></div>
+              <div className="triangle triangle24"></div>
+              <div className="triangle triangle25"></div>
+              <div className="triangle triangle26"></div>
+              <div className="triangle triangle27"></div>
+              <div className="triangle triangle28"></div>
+              <div className="triangle triangle29"></div>
+              <div className="triangle triangle30"></div>
+              <div className="triangle triangle31"></div>
+              <div className="triangle triangle32"></div>
+              <div className="triangle triangle33"></div>
+              <div className="triangle triangle34"></div>
+              <div className="triangle triangle35"></div>
+              <div className="triangle triangle36"></div>
+              
 
-          
-          
+
+
+        </div>  
         </div> {/* Closing Wrapper */}
+        
 
 
         

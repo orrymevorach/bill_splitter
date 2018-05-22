@@ -12,11 +12,12 @@ body {
 }
 
 .wrapper {
-    margin: 0 auto;
+    margin: 4% auto;
     max-width: 360px;
     background: white;
-    box-shadow: 0 0 8px black;
+    box-shadow: 0 -3px 8px black;
     padding: 20px;
+    position: relative;
 }
 
 p {
@@ -43,6 +44,11 @@ h1 {
     text-align: center;
 }
 
+.receiptInputs {
+    text-align: center;
+    padding: 20px 0;
+}
+
 // receiptInfo
 
 .receiptInfo {
@@ -52,18 +58,7 @@ h1 {
 
 .location-title {
     text-align: center;
-    text-transform: capitalize;
-}
-.bill-info-title {
-    text-align: center;
-    display: flex;
-}
-
-.info-style-left,
-.info-style-right {
-    border-top: 1px dashed black;
-    width: 50%;
-    margin-top: 25px;
+    text-transform: uppercase;
 }
 
 .amounts {
@@ -72,31 +67,73 @@ h1 {
 
 .numbers {
     float: right;
-    font-size: 16px;
+    font-size: 18px;
     font-style: bold;
+}
+
+.bill-info p {
+    margin: 0;
+}
+
+.split-by {
+    margin-bottom: 10px;
+}
+
+.bill-info-bottom {
+    margin-bottom: 15px;
+}
+
+.bill-info-middle:first-child {
+    margin-bottom: 10px;
+}
+
+input[type=text] {
+    width: 80%;
+    height: 40px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.receiptInputs input[type=submit] {
+    padding: 10px;
+    text-transform: uppercase;
+    margin-top: 10px;
+
+}
+
+.receiptInputs input[type=submit]:hover {
+    color: white;
+    background-color: darkcyan;
+    border: none;
+    padding: 12px 14px;
 }
 
 .reset-button {
     text-align: center;
-    margin: 0 auto;
+    border: none;
+    padding: 12px 14px;
+    background: white;
+    margin-top: 10px;
+    color: red;
+
 }
 
-.bill-info-top p,
-.bill-info-middle p,
-.bill-info-bottom p {
-    margin: 15px;
+.reset-button:hover {
+    color: white;
+    background: red;
+    border:none;
+    padding: 12px 14px;
 }
 
-// receiptsInputs
-
-.receiptInputs {
-    text-align: center;
-    padding: 20px 0;
+.tip {
+    padding-left: 15px;
 }
-
-
 
 // oldReceipts
+
+.oldReceipts {
+    margin-top: 20px;
+}
 
 ul {
     list-style: none;
@@ -104,16 +141,162 @@ ul {
     margin: 0;
     li {
         text-transform: capitalize;
-        span{
-            font-size: 12px;
-            font-style: none;
-        }
         button {
             float: right;
-            padding: 0;
+            padding: 8px 15px;
             margin: 0;
+            &.review-button {
+                padding: 10px 15px;
+            }
         }
     }
 }
+
+span.date {
+    font-size: 12px;
+    font-style: none;
+}
+
+span.restaurant-name {
+    display: inline-block;
+    padding: 12px 0 5px 0;
+}
+
+.oldReceipts input[type=textarea] {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.oldReceipts input[type=submit] {
+    float: right;
+    border-radius: 0;
+    border: none;
+}
+
+// Bottom Triangles For Receipt Style
+
+.triangle {
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+    border-top: 8px solid white;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+}
+
+.triangle2 {
+    left: 10px;
+}
+.triangle3 {
+    left: 20px;
+}
+.triangle4 {
+    left: 30px;
+}
+.triangle5 {
+    left: 40px;
+}
+.triangle6 {
+    left: 50px;
+}
+
+.triangle7 {
+    left: 60px;
+}
+
+.triangle8 {
+    left: 70px;
+}
+.triangle9 {
+    left: 80px;
+}
+.triangle10 {
+    left: 90px;
+}
+.triangle11 {
+    left: 100px;
+}
+.triangle12 {
+    left: 110px;
+}
+.triangle13 {
+    left: 120px;
+}
+.triangle14 {
+    left: 130px;
+}
+.triangle15 {
+    left: 140px;
+}
+.triangle16 {
+    left: 150px;
+}
+.triangle17 {
+    left: 160px;
+}
+.triangle18 {
+    left: 170px;
+}
+.triangle19 {
+    left: 180px;
+}
+
+.triangle20 {
+    left: 190px;
+}
+.triangle21 {
+    left: 200px;
+}
+.triangle22 {
+    left: 210px;
+}
+.triangle23 {
+    left: 220px;
+}
+.triangle24 {
+    left: 230px;
+}
+.triangle25 {
+    left: 240px;
+}
+.triangle26 {
+    left: 250px;
+}
+.triangle27 {
+    left: 260px;
+}
+.triangle28 {
+    left: 270px;
+}
+.triangle29 {
+    left: 280px;
+}
+.triangle30 {
+    left: 290px;
+}
+
+.triangle31 {
+    left: 300px;
+}
+.triangle32 {
+    left: 310px;
+}
+.triangle33 {
+    left: 320px;
+}
+.triangle34 {
+    left: 330px;
+}
+.triangle35 {
+    left: 340px;
+}
+.triangle36 {
+    left: 350px;
+}
+
+
+
 
 

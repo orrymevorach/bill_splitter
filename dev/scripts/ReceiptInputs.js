@@ -11,23 +11,23 @@ const ReceiptInputs = (props) => {
                         type="text"
                         value={props.location}
                         onChange={(e) => props.handleChange(e)}
+                        placeholder="example: McDonalds"
                     />
                 </div>
             
                 <div className="totalAmount">
-                    <label htmlFor="">What is the total of your bill?</label>
+                    <label htmlFor="">What Is The Total Of Your Bill?</label>
                     <input
                         // adding the name in makes it dynamic in the handleChange function
                         name="dollarAmount"
                         type="text"
-                        placeholder="0"
                         onChange={(e) => props.handleChange(e)}
                         value={props.dollarAmount}
                     />
                 </div>
 
                 <div className="totalPeople">
-                    <label htmlFor="">How many people are splitting the bill?</label>
+                    <label htmlFor="">How Many People Are Splitting The Bill?</label>
                     <input
                         // adding the name in makes it dynamic in the handleChange function
                         name="peopleAmount"
@@ -38,9 +38,12 @@ const ReceiptInputs = (props) => {
                 </div>
 
                 <div className="submit-button">
-                    <input type="submit" />
+                    <input type="submit" value="Calculate!" />
                 </div>
             </form>
+            
+            <button className="reset-button" onClick={props.reset}>{props.stringReset}</button>
+            
         </section>
     )
 }
